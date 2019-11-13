@@ -1,6 +1,6 @@
-const mqtt = require('mqtt')
-const client = mqtt.connect('mqtt://127.0.0.1')
-
+const mqtt = require('mqtt');
+const client = mqtt.connect('mqtt://127.0.0.1');
+const mysql = require('mysql');
 /**
  * The state of the garage, defaults to closed
  * Possible states : closed, opening, open, closing
@@ -17,7 +17,7 @@ client.on('connect', () => {
 })
 
 client.on('message', (topic, message) => {
-  console.log('received message %s %s', topic, message)
+  console.log('received message %s %s.', topic, message)
   switch (topic) {
     case 'garage/open':
       return handleOpenRequest(message)
@@ -70,7 +70,7 @@ function handleAppExit (options, err) {
     client.publish('garage/connected', 'false')
   }
 
-  else if(options.exit) {
+  if (options.exit) {
     process.exit()
   }
 }

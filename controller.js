@@ -1,5 +1,6 @@
 const mqtt = require('mqtt')
 const client = mqtt.connect('mqtt://127.0.0.1')
+const mysql = require('mysql');
 
 var garageState = ''
 var connected = false
@@ -22,7 +23,6 @@ client.on('message', (topic, message) => {
 function handleGarageConnected (message) {
   console.log('garage connected status %s', message)
   connected = (message.toString() === 'true')
-  console.log(connected);
 }
 
 function handleGarageState (message) {
@@ -52,10 +52,10 @@ function closeGarageDoor () {
 setTimeout(() => {
   console.log('open door')
   openGarageDoor()
-}, 2000)
+}, 5000)
 
 // simulate closing garage door
 setTimeout(() => {
   console.log('close door')
   closeGarageDoor()
-}, 5000)
+}, 20000)
